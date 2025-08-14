@@ -48,7 +48,7 @@ Siga os passos abaixo para executar o projeto em seu ambiente local.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [git@github.com:drypzz/task-manager.git](https://github.com/drypzz/task-manager)
+    git clone git@github.com:drypzz/task-manager.git
     ```
 
 2.  **Navegue até a pasta do projeto:**
