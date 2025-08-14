@@ -7,12 +7,21 @@ import { ModalBackdrop, ModalContent, Form, Label, Input, Textarea, ButtonContai
 
 import { useTaskForm } from './index.rules';
 
+// Variantes para a animação do modal com Framer Motion.
 const modalVariants = {
     hidden: { opacity: 0, y: -50, scale: 0.95 },
     visible: { opacity: 1, y: 0, scale: 1 },
     exit: { opacity: 0, y: 50, scale: 0.95 },
 };
 
+/**
+ * Componente de UI para o formulário de criação/edição de tarefas.
+ * Renderiza o modal e seus campos, mas toda a sua lógica de estado e submissão
+ * é gerenciada pelo hook `useTaskForm`.
+ * @param {object} props - Propriedades do componente.
+ * @param {object} [props.task] - A tarefa a ser editada. Se não for fornecida, o formulário entra em modo de criação.
+ * @param {Function} props.onClose - Função para fechar o modal.
+ */
 const TaskForm = ({ task, onClose }) => {
     const { title, setTitle, status, setStatus, author, setAuthor, description, setDescription, statusOptions, handleSubmit } = useTaskForm({ task, onClose });
 

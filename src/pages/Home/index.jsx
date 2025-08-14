@@ -12,6 +12,11 @@ import CustomSelect from '../../components/CustomSelect';
 
 import { Container, Header, Title, Filters, SearchWrapper, SearchInput, NewTaskButton, PaginationControls, PageInfo, StatusLegend, LegendItem, LegendColorCircle, NavButton } from './styles';
 
+/**
+ * Componente de UI que representa a página principal da aplicação.
+ * É um componente "burro" (dumb component), pois sua única responsabilidade é renderizar a interface
+ * com base nos dados e funções recebidos do hook `useHomeRules`.
+ */
 const Home = () => {
     const {
         statusFilter,

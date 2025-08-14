@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { FixedSizeList as List } from 'react-window';
 
 import AutoSizer from 'react-virtualized-auto-sizer';
@@ -8,6 +10,12 @@ import { ListContainer, LoadingContainer, Spinner, NoTasksFound } from './styles
 
 import { useTaskList } from './index.rules';
 
+/**
+ * Componente de UI responsável por renderizar a lista de tarefas.
+ * Utiliza `react-window` para virtualização, garantindo alta performance
+ * ao renderizar apenas os itens visíveis na tela.
+ * A lógica de dados é gerenciada pelo hook `useTaskList`.
+ */
 const TaskList = () => {
     const { filteredTasks, isLoading, Row } = useTaskList();
 

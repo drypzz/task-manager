@@ -29,6 +29,10 @@ export const ModalContent = styled(motion.div)`
     margin-bottom: ${({ theme }) => theme.spacing(3)};
     color: ${({ theme }) => theme.colors.accent};
   }
+
+  @media screen and (max-width: 960px) {
+    padding: 20px;
+  }
 `;
 
 export const Form = styled.form`
@@ -84,6 +88,10 @@ export const ButtonContainer = styled.div`
   justify-content: flex-end;
   gap: ${({ theme }) => theme.spacing(2)};
   margin-top: ${({ theme }) => theme.spacing(2)};
+
+  @media screen and (max-width: 960px) {
+    justify-content: center;
+  }
 `;
 
 export const Button = styled(motion.button)`

@@ -10,7 +10,15 @@ import { Item, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton } from
 
 import { useTaskItem } from './index.rules';
 
-const TaskItem = ({ task, itemNumber }) => {
+/**
+ * Componente de UI que representa um único item na lista de tarefas.
+ * Exibe o título e o status da tarefa, além de ações como editar e excluir.
+ * A lógica para essas ações é gerenciada pelo hook `useTaskItem`.
+ * @param {object} props - Propriedades do componente.
+ * @param {object} props.task - O objeto da tarefa a ser renderizado.
+ */
+const TaskItem = ({ task }) => {
+
     const { isEditing, handleDelete, handleEdit, handleCloseModal } = useTaskItem({ task });
 
     return (
@@ -23,10 +31,10 @@ const TaskItem = ({ task, itemNumber }) => {
                 layout
             >
                 <TaskInfoLink to={`/task/${task.id}`}>
-                    {/* <ItemNumber>{itemNumber}.</ItemNumber> */}
                     <TaskStatus $status={task.status} title={task.status} />
                     <TaskTitle>{task.title}</TaskTitle>
                 </TaskInfoLink>
+
                 <Actions>
                     <ActionButton title="Editar Tarefa" onClick={handleEdit}>
                         <FaEdit />
@@ -36,6 +44,7 @@ const TaskItem = ({ task, itemNumber }) => {
                     </ActionButton>
                 </Actions>
             </Item>
+
             <AnimatePresence>
                 {isEditing && <TaskForm task={task} onClose={handleCloseModal} />}
             </AnimatePresence>

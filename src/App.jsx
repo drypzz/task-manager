@@ -10,6 +10,7 @@ import { GlobalStyle } from './globalStyles';
 
 import Home from './pages/Home';
 import TaskDetail from './pages/TaskDetail';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/task/:taskId" element={<TaskDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

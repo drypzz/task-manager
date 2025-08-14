@@ -1,28 +1,37 @@
 import React from 'react';
 
-import { FaArrowLeft, FaUser, FaCalendarAlt } from 'react-icons/fa';
+import { FaArrowLeft, FaUser, FaCalendarAlt, FaBoxOpen } from 'react-icons/fa';
 
 import { Link } from 'react-router-dom';
 
 import { useTaskDetail } from './index.rules';
 
-import { DetailContainer, Loading, DetailCard, CardHeader, TaskTitle, TaskStatus, CardBody, Description, Metadata, MetaItem, BackButton } from './styles';
+import { DetailContainer, NoTasksFound, LoadingContainer, Spinner, DetailCard, CardHeader, TaskTitle, TaskStatus, CardBody, Description, Metadata, MetaItem, BackButton } from './styles';
 
+/**
+ * Componente de UI que representa a página de detalhes de uma tarefa.
+ * É um componente "burro" (dumb component), pois sua única responsabilidade é renderizar a interface
+ * com base nos dados recebidos do hook `useTaskDetail`.
+ */
 const TaskDetail = () => {
     const { isLoading, task, formattedDate } = useTaskDetail();
 
     if (isLoading) {
-        return <Loading>Carregando detalhes da tarefa...</Loading>;
+        return (
+            <LoadingContainer>
+                <Spinner />
+                <p>Carregando detalhes...</p>
+            </LoadingContainer>
+        );
     }
 
     if (!task) {
         return (
             <DetailContainer>
-                <p>Tarefa não encontrada.</p>
-                <BackButton as={Link} to="/">
-                    <FaArrowLeft />
-                    Voltar para a lista
-                </BackButton>
+                <NoTasksFound>
+                    <FaBoxOpen size={50} />
+                    <h3>Tarefa não encontrada</h3>
+                </NoTasksFound>
             </DetailContainer>
         );
     }

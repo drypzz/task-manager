@@ -8,8 +8,19 @@ import { SelectWrapper, SelectHeader, SelectedValue, DropdownIcon, DropdownList,
 
 import { useCustomSelect } from './index.rules';
 
+/**
+ * Componente de UI para um select customizado e estilizado.
+ * Este é um componente "controlado", recebendo seu valor e a função de callback via props.
+ * A lógica de estado é abstraída pelo hook `useCustomSelect`.
+ * @param {object} props - Propriedades do componente.
+ * @param {Array<object>} props.options - Array de opções no formato `{ value: any, label: string }`.
+ * @param {*} props.value - O valor atual do select.
+ * @param {Function} props.onChange - Função a ser chamada na seleção de um item.
+ * @param {string} props.placeholder - Texto a ser exibido quando nenhum valor está selecionado.
+ * @param {string} [props.width='220px'] - Largura customizável para o componente.
+ */
 const CustomSelect = ({ options, value, onChange, placeholder, width = '220px' }) => {
-    
+
     const { isOpen, setIsOpen, wrapperRef, handleSelect, selectedOption } = useCustomSelect({
         options,
         value,
@@ -26,6 +37,7 @@ const CustomSelect = ({ options, value, onChange, placeholder, width = '220px' }
                     <FaChevronDown />
                 </DropdownIcon>
             </SelectHeader>
+
             <AnimatePresence>
                 {isOpen && (
                     <DropdownList
