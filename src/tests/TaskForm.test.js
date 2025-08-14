@@ -1,19 +1,23 @@
 import React from 'react';
+
 import { render, screen, fireEvent } from '@testing-library/react';
+
 import '@testing-library/jest-dom';
+
 import { ThemeProvider } from 'styled-components';
-import { theme } from '../theme'; // Corrigido para importar seu tema único
+
+import { theme } from '../theme';
+
 import TaskForm from '../components/TaskForm';
+
 import useTaskStore from '../store/useTaskStore';
 
-// Mocks
 jest.mock('../store/useTaskStore');
 jest.mock('react-dom', () => ({
     ...jest.requireActual('react-dom'),
     createPortal: (node) => node,
 }));
 
-// Helper que usa diretamente o tema importado
 const renderWithTheme = (ui, options) => {
     return render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>, options);
 };

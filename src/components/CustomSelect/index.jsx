@@ -1,18 +1,12 @@
 import React, { useState, useRef } from 'react';
+
 import { FaChevronDown } from 'react-icons/fa';
 
 import { AnimatePresence } from 'framer-motion';
 
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 
-import {
-    SelectWrapper,
-    SelectHeader,
-    SelectedValue,
-    DropdownIcon,
-    DropdownList,
-    DropdownItem,
-} from './styles';
+import { SelectWrapper, SelectHeader, SelectedValue, DropdownIcon, DropdownList, DropdownItem } from './styles';
 
 const CustomSelect = ({ options, value, onChange, placeholder, width = '220px' }) => {
     const [isOpen, setIsOpen] = useState(false);

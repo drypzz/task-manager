@@ -2,29 +2,15 @@ import React, { useEffect, useState } from 'react';
 
 import { FaPlus, FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+import { AnimatePresence } from 'framer-motion';
+
 import useTaskStore from '../../store/useTaskStore';
 
 import TaskList from '../../components/TaskList';
 import TaskForm from '../../components/TaskForm';
 import CustomSelect from '../../components/CustomSelect';
 
-import { AnimatePresence } from 'framer-motion';
-
-import {
-    Container,
-    Header,
-    Title,
-    Filters,
-    SearchWrapper,
-    SearchInput,
-    NewTaskButton,
-    PaginationControls,
-    PageInfo,
-    StatusLegend,
-    LegendItem,
-    LegendColorCircle,
-    NavButton,
-} from './styles';
+import { Container, Header, Title, Filters, SearchWrapper, SearchInput, NewTaskButton, PaginationControls, PageInfo, StatusLegend, LegendItem, LegendColorCircle, NavButton } from './styles';
 
 const Home = () => {
     const { fetchTasks, setStatusFilter, statusFilter, setSearchTerm, searchTerm, pageSize, setPageSize, page, setPage, totalPages, filteredTasks, filteredTasksCount, } = useTaskStore();

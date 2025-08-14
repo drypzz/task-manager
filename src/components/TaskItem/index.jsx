@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
+import { AnimatePresence } from 'framer-motion';
+
 import useTaskStore from '../../store/useTaskStore';
 
 import TaskForm from '../TaskForm';
-
-import { AnimatePresence } from 'framer-motion';
 
 import { Item, ItemNumber, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton, } from './styles';
 

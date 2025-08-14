@@ -119,7 +119,7 @@ const TaskForm = ({ task, onClose }) => {
 
                     <ButtonContainer>
                         <Button type="submit">{task ? 'Salvar' : 'Adicionar'}</Button>
-                        <Button type="button" onClick={onClose} secondary>
+                        <Button type="button" onClick={onClose} $secondary>
                             Cancelar
                         </Button>
                     </ButtonContainer>

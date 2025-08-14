@@ -95,9 +95,9 @@ export const Button = styled(motion.button)`
   cursor: pointer;
   transition: transform 0.2s ease;
 
-  background: ${({ secondary, theme }) => (secondary ? 'transparent' : theme.colors.accent)};
-  color: ${({ secondary, theme }) => (secondary ? theme.colors.fontSecondary : 'white')};
-  border: 1px solid ${({ secondary, theme }) => (secondary ? theme.colors.border : 'transparent')};
+  background: ${({ $secondary, theme }) => ($secondary ? 'transparent' : theme.colors.accent)};
+  color: ${({ $secondary, theme }) => ($secondary ? theme.colors.fontSecondary : 'white')};
+  border: 1px solid ${({ $secondary, theme }) => ($secondary ? theme.colors.border : 'transparent')};
 
   &:hover {
     transform: translateY(-2px);

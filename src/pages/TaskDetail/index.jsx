@@ -1,24 +1,12 @@
 import React, { useEffect } from 'react';
 
+import { FaArrowLeft, FaUser, FaCalendarAlt } from 'react-icons/fa';
+
 import { useParams, Link } from 'react-router-dom';
 
 import useTaskStore from '../../store/useTaskStore';
 
-import { FaArrowLeft, FaUser, FaCalendarAlt } from 'react-icons/fa';
-
-import {
-    DetailContainer,
-    Loading,
-    DetailCard,
-    CardHeader,
-    TaskTitle,
-    TaskStatus,
-    CardBody,
-    Description,
-    Metadata,
-    MetaItem,
-    BackButton,
-} from './styles';
+import { DetailContainer, Loading, DetailCard, CardHeader, TaskTitle, TaskStatus, CardBody, Description, Metadata, MetaItem, BackButton } from './styles';
 
 const TaskDetail = () => {
     const { taskId } = useParams();

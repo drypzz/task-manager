@@ -25,7 +25,7 @@ describe('TaskList', () => {
     const renderWithProviders = (ui) => {
         return render(
             <ThemeProvider theme={theme}>
-                <MemoryRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+                <MemoryRouter>
                     {ui}
                 </MemoryRouter>
             </ThemeProvider>
