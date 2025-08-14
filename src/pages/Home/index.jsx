@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { FaPlus, FaSearch, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 import { AnimatePresence } from 'framer-motion';
 
-import useTaskStore from '../../store/useTaskStore';
+import { useHomeRules } from './index.rules';
 
 import TaskList from '../../components/TaskList';
 import TaskForm from '../../components/TaskForm';
@@ -13,39 +13,25 @@ import CustomSelect from '../../components/CustomSelect';
 import { Container, Header, Title, Filters, SearchWrapper, SearchInput, NewTaskButton, PaginationControls, PageInfo, StatusLegend, LegendItem, LegendColorCircle, NavButton } from './styles';
 
 const Home = () => {
-    const { fetchTasks, setStatusFilter, statusFilter, setSearchTerm, searchTerm, pageSize, setPageSize, page, setPage, totalPages, filteredTasks, filteredTasksCount, } = useTaskStore();
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    useEffect(() => {
-        fetchTasks();
-    }, [fetchTasks]);
-
-    const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
-
-    const statusOptions = [
-        { value: 'Todos', label: 'Todos os Status' },
-        { value: 'Em andamento', label: 'Em andamento' },
-        { value: 'Concluída', label: 'Concluída' },
-        { value: 'Atrasada', label: 'Atrasada' },
-        { value: 'Pendente', label: 'Pendente' },
-    ];
-
-    const pageSizeOptions = [
-        { value: 25, label: 'Exibir 25' },
-        { value: 50, label: 'Exibir 50' },
-        { value: 100, label: 'Exibir 100' },
-    ];
-
-    const legendItems = [
-        { status: 'Concluída', label: 'Concluída' },
-        { status: 'Em andamento', label: 'Em Andamento' },
-        { status: 'Atrasada', label: 'Atrasada' },
-        { status: 'Pendente', label: 'Pendente' },
-    ];
-
-    const startIndex = (page - 1) * pageSize + 1;
-    const endIndex = startIndex + filteredTasks.length - 1;
+    const {
+        statusFilter,
+        searchTerm,
+        pageSize,
+        page,
+        totalPages,
+        filteredTasksCount,
+        isModalOpen,
+        setStatusFilter,
+        setSearchTerm,
+        setPageSize,
+        setPage,
+        handleOpenModal,
+        handleCloseModal,
+        statusOptions,
+        pageSizeOptions,
+        legendItems,
+        pageInfo,
+    } = useHomeRules();
 
     return (
         <Container>
@@ -56,6 +42,7 @@ const Home = () => {
                     <span>Nova Tarefa</span>
                 </NewTaskButton>
             </Header>
+
             <Filters>
                 <SearchWrapper>
                     <FaSearch />
@@ -82,7 +69,7 @@ const Home = () => {
             <PaginationControls>
                 {filteredTasksCount > 0 && (
                     <PageInfo>
-                        Exibindo {startIndex} - {endIndex} de {filteredTasksCount}
+                        Exibindo {pageInfo.startIndex} - {pageInfo.endIndex} de {filteredTasksCount}
                     </PageInfo>
                 )}
                 <div>
@@ -99,8 +86,8 @@ const Home = () => {
 
             <StatusLegend>
                 {legendItems.map(item => (
-                    <LegendItem key={item.status}>
-                        <LegendColorCircle $status={item.status} />
+                    <LegendItem key={item.label}>
+                        <LegendColorCircle $status={item.$status} />
                         <span>{item.label}</span>
                     </LegendItem>
                 ))}

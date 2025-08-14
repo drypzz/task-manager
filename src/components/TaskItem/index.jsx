@@ -1,27 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
 import { AnimatePresence } from 'framer-motion';
 
-import useTaskStore from '../../store/useTaskStore';
-
 import TaskForm from '../TaskForm';
 
-import { Item, ItemNumber, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton, } from './styles';
+import { Item, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton } from './styles';
+
+import { useTaskItem } from './index.rules';
 
 const TaskItem = ({ task, itemNumber }) => {
-    const { deleteTask } = useTaskStore();
-    const [isEditing, setIsEditing] = useState(false);
-
-    const handleDelete = () => {
-        if (window.confirm(`Tem certeza que deseja excluir a tarefa "${task.title}"?`)) {
-            deleteTask(task.id);
-        }
-    };
-
-    const handleEdit = () => setIsEditing(true);
-    const handleCloseModal = () => setIsEditing(false);
+    const { isEditing, handleDelete, handleEdit, handleCloseModal } = useTaskItem({ task });
 
     return (
         <>

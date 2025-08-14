@@ -1,26 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { FaArrowLeft, FaUser, FaCalendarAlt } from 'react-icons/fa';
 
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-import useTaskStore from '../../store/useTaskStore';
+import { useTaskDetail } from './index.rules';
 
 import { DetailContainer, Loading, DetailCard, CardHeader, TaskTitle, TaskStatus, CardBody, Description, Metadata, MetaItem, BackButton } from './styles';
 
 const TaskDetail = () => {
-    const { taskId } = useParams();
-    const { currentTask, isCurrentTaskLoading, fetchTaskById } = useTaskStore();
+    const { isLoading, task, formattedDate } = useTaskDetail();
 
-    useEffect(() => {
-        fetchTaskById(taskId);
-    }, [taskId, fetchTaskById]);
-
-    if (isCurrentTaskLoading) {
+    if (isLoading) {
         return <Loading>Carregando detalhes da tarefa...</Loading>;
     }
 
-    if (!currentTask) {
+    if (!task) {
         return (
             <DetailContainer>
                 <p>Tarefa não encontrada.</p>
@@ -32,12 +27,6 @@ const TaskDetail = () => {
         );
     }
 
-    const formattedDate = new Date(currentTask.createdAt).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-    });
-
     return (
         <DetailContainer>
             <BackButton as={Link} to="/">
@@ -46,21 +35,21 @@ const TaskDetail = () => {
             </BackButton>
             <DetailCard>
                 <CardHeader>
-                    <TaskTitle>{currentTask.title}</TaskTitle>
-                    <TaskStatus $status={currentTask.status}>{currentTask.status}</TaskStatus>
+                    <TaskTitle>{task.title}</TaskTitle>
+                    <TaskStatus $status={task.status}>{task.status}</TaskStatus>
                 </CardHeader>
                 <CardBody>
                     <Metadata>
                         <MetaItem>
                             <FaUser />
-                            <span>{currentTask.author}</span>
+                            <span>{task.author}</span>
                         </MetaItem>
                         <MetaItem>
                             <FaCalendarAlt />
                             <span>{formattedDate}</span>
                         </MetaItem>
                     </Metadata>
-                    <Description>{currentTask.description}</Description>
+                    <Description>{task.description}</Description>
                 </CardBody>
             </DetailCard>
         </DetailContainer>

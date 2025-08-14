@@ -1,25 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 
 import { FaChevronDown } from 'react-icons/fa';
 
 import { AnimatePresence } from 'framer-motion';
 
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-
 import { SelectWrapper, SelectHeader, SelectedValue, DropdownIcon, DropdownList, DropdownItem } from './styles';
 
+import { useCustomSelect } from './index.rules';
+
 const CustomSelect = ({ options, value, onChange, placeholder, width = '220px' }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const wrapperRef = useRef(null);
-
-    useOnClickOutside(wrapperRef, () => setIsOpen(false));
-
-    const handleSelect = (optionValue) => {
-        onChange(optionValue);
-        setIsOpen(false);
-    };
-
-    const selectedOption = options.find((opt) => opt.value === value);
+    
+    const { isOpen, setIsOpen, wrapperRef, handleSelect, selectedOption } = useCustomSelect({
+        options,
+        value,
+        onChange
+    });
 
     return (
         <SelectWrapper ref={wrapperRef} width={width}>

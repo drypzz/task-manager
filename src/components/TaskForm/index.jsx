@@ -1,21 +1,11 @@
-import React, { useState } from 'react';
-
+import React from 'react';
 import ReactDOM from 'react-dom';
-
-import useTaskStore from '../../store/useTaskStore';
 
 import CustomSelect from '../CustomSelect';
 
-import {
-    ModalBackdrop,
-    ModalContent,
-    Form,
-    Label,
-    Input,
-    Textarea,
-    ButtonContainer,
-    Button,
-} from './styles';
+import { ModalBackdrop, ModalContent, Form, Label, Input, Textarea, ButtonContainer, Button } from './styles';
+
+import { useTaskForm } from './index.rules';
 
 const modalVariants = {
     hidden: { opacity: 0, y: -50, scale: 0.95 },
@@ -24,49 +14,7 @@ const modalVariants = {
 };
 
 const TaskForm = ({ task, onClose }) => {
-    const { addTask, updateTask } = useTaskStore();
-
-    const [title, setTitle] = useState(task ? task.title : '');
-    const [status, setStatus] = useState(task ? task.status : 'Em andamento');
-    const [author, setAuthor] = useState(task ? task.author : '');
-    const [description, setDescription] = useState(task ? task.description : '');
-
-    const statusOptions = [
-        { value: 'Em andamento', label: 'Em andamento' },
-        { value: 'Concluída', label: 'Concluída' },
-        { value: 'Atrasada', label: 'Atrasada' },
-        { value: 'Pendente', label: 'Pendente' },
-    ];
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!title || !author) {
-            alert("Por favor, preencha o título e o autor.");
-            return;
-        };
-
-        if (task) {
-            const updatedTaskPayload = {
-                ...task,
-                title,
-                status,
-                author,
-                description,
-            };
-            updateTask(task.id, updatedTaskPayload);
-        } else {
-            const newTaskPayload = {
-                title,
-                status,
-                author,
-                description,
-                createdAt: new Date().toISOString(),
-            };
-            addTask(newTaskPayload);
-        }
-
-        onClose();
-    };
+    const { title, setTitle, status, setStatus, author, setAuthor, description, setDescription, statusOptions, handleSubmit } = useTaskForm({ task, onClose });
 
     return ReactDOM.createPortal(
         <ModalBackdrop>
@@ -105,7 +53,7 @@ const TaskForm = ({ task, onClose }) => {
                             options={statusOptions}
                             width='100%'
                             value={status}
-                            onChange={(value) => setStatus(value)}
+                            onChange={setStatus}
                         />
                     </Label>
 
