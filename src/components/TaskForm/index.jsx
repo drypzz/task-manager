@@ -42,7 +42,6 @@ const TaskForm = ({ task, onClose }) => {
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            required
                         />
                     </Label>
 
@@ -52,7 +51,6 @@ const TaskForm = ({ task, onClose }) => {
                             type="text"
                             value={author}
                             onChange={(e) => setAuthor(e.target.value)}
-                            required
                         />
                     </Label>
 

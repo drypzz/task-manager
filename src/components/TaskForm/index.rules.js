@@ -12,7 +12,7 @@ import useTaskStore from '../../store/useTaskStore';
  * @returns {object} - Retorna o estado dos campos, seus setters, e os manipuladores de eventos para o componente de UI.
  */
 export const useTaskForm = ({ task, onClose }) => {
-    const { addTask, updateTask } = useTaskStore();
+    const { addTask, updateTask, addNotification } = useTaskStore();
 
     const [title, setTitle] = useState(task ? task.title : '');
     const [status, setStatus] = useState(task ? task.status : 'Em andamento');
@@ -39,8 +39,11 @@ export const useTaskForm = ({ task, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!title || !author) {
-            alert("Por favor, preencha o título e o autor.");
+        if (!title || !author || !description || !status) {
+            addNotification({
+                type: 'warning',
+                message: 'Por favor, preencha o título, o autor, a descrição e o status.',
+            });
             return;
         }
 

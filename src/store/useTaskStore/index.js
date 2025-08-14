@@ -11,26 +11,70 @@ import axios from 'axios';
 const useTaskStore = create((set, get) => ({
     /** @type {Array<Object>} tasks - Array original com todas as tarefas buscadas da API. */
     tasks: [],
+    
     /** @type {Array<Object>} filteredTasks - Array de tarefas após a aplicação de filtros e paginação. */
     filteredTasks: [],
+    
     /** @type {number} filteredTasksCount - O número total de tarefas após a aplicação dos filtros, antes da paginação. */
     filteredTasksCount: 0,
+    
     /** @type {string} statusFilter - O valor do filtro de status atualmente selecionado. */
     statusFilter: 'Todos',
+   
     /** @type {string} searchTerm - O termo de busca atualmente digitado pelo usuário. */
     searchTerm: '',
+    
     /** @type {number} page - O número da página atual na paginação. */
     page: 1,
+    
     /** @type {number} pageSize - A quantidade de itens a serem exibidos por página. */
     pageSize: 25,
+    
     /** @type {number} totalPages - O número total de páginas calculado com base em `filteredTasksCount` e `pageSize`. */
     totalPages: 1,
+    
     /** @type {boolean} isLoading - Sinalizador para o estado de carregamento da lista principal de tarefas. */
     isLoading: false,
+    
     /** @type {Object|null} currentTask - Armazena os dados da tarefa única que está sendo visualizada na página de detalhes. */
     currentTask: null,
+    
     /** @type {boolean} isCurrentTaskLoading - Sinalizador para o estado de carregamento da tarefa única. */
     isCurrentTaskLoading: false,
+    
+    /** @type {Array<object>} notifications - Array de notificações ativas. */
+    notifications: [],
+    
+    /** @type {string|null} error - Armazena a última mensagem de erro da API. */
+    error: null,
+
+    /** Adiciona uma nova notificação ao estado. */
+    addNotification: (notification) => {
+        const id = Date.now();
+        set((state) => ({ notifications: [...state.notifications, { ...notification, id }] }));
+        setTimeout(() => get().removeNotification(id), 5000);
+    },
+
+    /** Remove uma notificação do estado. */
+    removeNotification: (id) => {
+        set((state) => ({ notifications: state.notifications.filter((n) => n.id !== id) }));
+    },
+
+    /**
+   * Ação centralizada para tratar erros da API.
+   * Define o estado de erro e dispara uma notificação para o usuário.
+   * @param {Error} error - O objeto de erro capturado.
+   * @param {string} contextMessage - Mensagem de contexto (ex: "ao buscar tarefas").
+   */
+    handleApiError: (error, contextMessage) => {
+        const errorMessage = `Erro ${contextMessage}: ${error.message}`;
+        console.error(errorMessage, error);
+        set({ error: errorMessage, isLoading: false, isCurrentTaskLoading: false });
+        get().addNotification({
+            type: 'danger',
+            message: `Falha na operação. Por favor, tente novamente.`,
+        });
+    },
 
     /**
      * Busca a lista completa de tarefas da API.
@@ -41,10 +85,9 @@ const useTaskStore = create((set, get) => ({
         try {
             const response = await axios.get('http://localhost:3001/tasks');
             set({ tasks: response.data, isLoading: false });
-            get().filterAndPaginateTasks(); // Aplica filtros e paginação após buscar os dados.
+            get().filterAndPaginateTasks();
         } catch (error) {
-            console.error("Erro ao buscar tarefas:", error);
-            set({ isLoading: false });
+            get().handleApiError(error, "ao buscar tarefas");
         }
     },
 
@@ -57,8 +100,9 @@ const useTaskStore = create((set, get) => ({
             const response = await axios.post('http://localhost:3001/tasks', task);
             set((state) => ({ tasks: [...state.tasks, response.data] }));
             get().filterAndPaginateTasks();
+            get().addNotification({ type: 'success', message: 'Tarefa criada com sucesso!' });
         } catch (error) {
-            console.error("Erro ao adicionar tarefa:", error);
+            get().handleApiError(error, "ao adicionar tarefa");
         }
     },
 
@@ -74,8 +118,9 @@ const useTaskStore = create((set, get) => ({
                 tasks: state.tasks.map((task) => (task.id === id ? response.data : task)),
             }));
             get().filterAndPaginateTasks();
+            get().addNotification({ type: 'success', message: 'Tarefa atualizada com sucesso!' });
         } catch (error) {
-            console.error("Erro ao atualizar tarefa:", error);
+            get().handleApiError(error, "ao atualizar tarefa");
         }
     },
 
@@ -90,8 +135,9 @@ const useTaskStore = create((set, get) => ({
                 tasks: state.tasks.filter((task) => task.id !== id),
             }));
             get().filterAndPaginateTasks();
+            get().addNotification({ type: 'success', message: 'Tarefa excluída com sucesso!' });
         } catch (error) {
-            console.error("Erro ao deletar tarefa:", error);
+            get().handleApiError(error, "ao deletar tarefa");
         }
     },
 
@@ -105,8 +151,7 @@ const useTaskStore = create((set, get) => ({
             const response = await axios.get(`http://localhost:3001/tasks/${id}`);
             set({ currentTask: response.data, isCurrentTaskLoading: false });
         } catch (error) {
-            console.error(`Erro ao buscar a tarefa ${id}:`, error);
-            set({ isCurrentTaskLoading: false });
+            get().handleApiError(error, `ao buscar a tarefa ${id}`);
         }
     },
 

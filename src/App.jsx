@@ -8,6 +8,8 @@ import { theme } from './theme';
 
 import { GlobalStyle } from './globalStyles';
 
+import NotificationCenter from './components/NotificationCenter';
+
 import Home from './pages/Home';
 import TaskDetail from './pages/TaskDetail';
 import NotFound from './pages/NotFound';
@@ -23,6 +25,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <NotificationCenter />
     </ThemeProvider>
   );
 }
