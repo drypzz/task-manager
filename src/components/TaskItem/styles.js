@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
 
@@ -6,6 +7,7 @@ const statusColors = {
   'Concluída': css`background: ${({ theme }) => theme.colors.success};`,
   'Atrasada': css`background: ${({ theme }) => theme.colors.danger};`,
   'Em andamento': css`background: ${({ theme }) => theme.colors.warning};`,
+  'Pendente': css`background: ${({ theme }) => theme.colors.info};`,
 };
 
 export const Item = styled(motion.div)`
@@ -25,12 +27,22 @@ export const Item = styled(motion.div)`
   }
 `;
 
-export const TaskInfo = styled.div`
+export const ItemNumber = styled.span`
+  color: ${({ theme }) => theme.colors.fontSecondary};
+  font-weight: 600;
+  font-size: 0.9rem;
+  min-width: 2.5em;
+  text-align: right;
+`;
+
+export const TaskInfoLink = styled(Link)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(2)};
   flex: 1;
-  min-width: 0; /* Para o ellipsis funcionar */
+  min-width: 0;
+  text-decoration: none;
+  color: inherit;
 `;
 
 export const TaskTitle = styled.span`
@@ -41,13 +53,18 @@ export const TaskTitle = styled.span`
 `;
 
 export const TaskStatus = styled.span`
-  padding: ${({ theme }) => theme.spacing(0.5)} ${({ theme }) => theme.spacing(1.5)};
-  border-radius: 12px;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
-  color: #111;
-  ${({ status }) => statusColors[status] || statusColors['Em andamento']};
+  color: #111; */
+
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  
+  ${({ $status }) => statusColors[$status] || statusColors['Em andamento']};
 `;
 
 export const Actions = styled.div`
@@ -68,7 +85,7 @@ export const ActionButton = styled(motion.button)`
   transition: color 0.2s ease, background-color 0.2s ease;
 
   &:hover {
-    color: ${({ danger, theme }) => (danger ? theme.colors.danger : theme.colors.accent)};
+    color: ${({ $danger, theme }) => ($danger ? theme.colors.danger : theme.colors.info)};
     background-color: ${({ theme }) => theme.colors.border};
   }
 `;

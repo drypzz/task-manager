@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 
 export const SelectWrapper = styled.div`
   position: relative;
-  width: 220px;
+  width: ${({ width }) => width || '220px'};
   font-family: ${({ theme }) => theme.fonts.main};
 
   @media screen and (max-width: 960px) {
-      width: 100%;
+    width: 100%;
   }
 `;
 
@@ -55,8 +55,8 @@ export const DropdownList = styled(motion.ul)`
 
 export const DropdownItem = styled.li`
   padding: ${({ theme }) => theme.spacing(1.5)};
-  color: ${({ theme, is_selected }) => (is_selected ? theme.colors.accent : theme.colors.font)};
-  background-color: ${({ theme, is_selected }) => (is_selected ? theme.colors.primary : 'transparent')};
+  color: ${({ theme, $is_selected }) => ($is_selected ? theme.colors.accent : theme.colors.font)};
+  background-color: ${({ theme, $is_selected }) => ($is_selected ? theme.colors.primary : 'transparent')};
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.2s ease;

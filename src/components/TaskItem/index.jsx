@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 
+import { FaEdit, FaTrash } from 'react-icons/fa';
+
 import useTaskStore from '../../store/useTaskStore';
 
 import TaskForm from '../TaskForm';
 
-import { FaEdit, FaTrash } from 'react-icons/fa';
-
 import { AnimatePresence } from 'framer-motion';
 
-import { Item, TaskInfo, TaskTitle, TaskStatus, Actions, ActionButton } from './styles';
+import { Item, ItemNumber, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton, } from './styles';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, itemNumber }) => {
     const { deleteTask } = useTaskStore();
     const [isEditing, setIsEditing] = useState(false);
 
@@ -32,15 +32,16 @@ const TaskItem = ({ task }) => {
                 transition={{ duration: 0.3 }}
                 layout
             >
-                <TaskInfo>
+                <TaskInfoLink to={`/task/${task.id}`}>
+                    {/* <ItemNumber>{itemNumber}.</ItemNumber> */}
+                    <TaskStatus $status={task.status} title={task.status} />
                     <TaskTitle>{task.title}</TaskTitle>
-                    <TaskStatus status={task.status}>{task.status}</TaskStatus>
-                </TaskInfo>
+                </TaskInfoLink>
                 <Actions>
                     <ActionButton title="Editar Tarefa" onClick={handleEdit}>
                         <FaEdit />
                     </ActionButton>
-                    <ActionButton title="Excluir Tarefa" onClick={handleDelete} danger>
+                    <ActionButton title="Excluir Tarefa" onClick={handleDelete} $danger>
                         <FaTrash />
                     </ActionButton>
                 </Actions>

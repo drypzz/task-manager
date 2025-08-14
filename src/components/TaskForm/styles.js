@@ -60,6 +60,25 @@ export const Input = styled.input`
   }
 `;
 
+export const Textarea = styled.textarea`
+  padding: ${({ theme }) => theme.spacing(1.5)};
+  font-size: 1rem;
+  background: transparent;
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 8px;
+  color: ${({ theme }) => theme.colors.font};
+  outline: none;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    border-color: ${({ theme }) => theme.colors.accent};
+  }
+
+  resize: none;
+  min-height: 120px;
+  font-family: ${({ theme }) => theme.fonts.main};
+`;
+
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;

@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-
 import { FaChevronDown } from 'react-icons/fa';
 
 import { AnimatePresence } from 'framer-motion';
@@ -15,7 +14,7 @@ import {
     DropdownItem,
 } from './styles';
 
-const CustomSelect = ({ options, value, onChange, placeholder }) => {
+const CustomSelect = ({ options, value, onChange, placeholder, width = '220px' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const wrapperRef = useRef(null);
 
@@ -29,7 +28,7 @@ const CustomSelect = ({ options, value, onChange, placeholder }) => {
     const selectedOption = options.find((opt) => opt.value === value);
 
     return (
-        <SelectWrapper ref={wrapperRef}>
+        <SelectWrapper ref={wrapperRef} width={width}>
             <SelectHeader onClick={() => setIsOpen(!isOpen)}>
                 <SelectedValue>
                     {selectedOption ? selectedOption.label : placeholder}
@@ -50,7 +49,7 @@ const CustomSelect = ({ options, value, onChange, placeholder }) => {
                             <DropdownItem
                                 key={option.value}
                                 onClick={() => handleSelect(option.value)}
-                                is_selected={option.value === value}
+                                $is_selected={option.value === value}
                             >
                                 {option.label}
                             </DropdownItem>

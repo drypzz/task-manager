@@ -1,15 +1,16 @@
 export const theme = {
     colors: {
-        background: '#1a1a2e',
-        surface: '#16213e',
-        primary: '#0f3460',
-        accent: '#e94560',
-        font: '#dcdcdc',
-        fontSecondary: '#a0a0a0',
-        success: '#3ddc97',
-        warning: '#ffc93c',
-        danger: '#e94560',
-        border: 'rgba(255, 255, 255, 0.1)',
+        background: '#111827', // Cinza-azulado muito escuro
+        surface: '#1F2937',    // Cinza-ardósia
+        primary: '#374151',    // Cinza médio para hover
+        accent: '#14B8A6',     // Verde-azulado (Teal) vibrante
+        font: '#F9FAFB',       // Branco suave
+        fontSecondary: '#9CA3AF', // Cinza claro para texto secundário
+        success: '#22C55E',    // Verde-limão
+        warning: '#F59E0B',    // Âmbar
+        danger: '#EF4444',     // Vermelho vivo
+        border: 'rgba(255, 255, 255, 0.08)',
+        info: '#3B82F6',       // Azul
     },
     fonts: {
         main: "'Poppins', sans-serif",
