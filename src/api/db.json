@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Implementar a interface de usuário",
+      "status": "Concluída"
+    },
+    {
+      "id": "2",
+      "title": "Conectar com a API de backend",
+      "status": "Concluída"
+    },
+    {
+      "id": "3",
+      "title": "Escrever os testes unitários",
+      "status": "Atrasada"
+    }
+  ]
+}
