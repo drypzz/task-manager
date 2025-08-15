@@ -1,36 +1,49 @@
-import React from 'react';
-
 import useTaskStore from '../../store/useTaskStore';
+
+import { useDraggableList } from '../../hooks/useDraggableList';
 
 import TaskItem from '../TaskItem';
 
+import { DraggableItem } from './styles';
+
 /**
- * Hook customizado para fornecer a lógica e os dados para o componente TaskList.
- * Ele se conecta ao store do Zustand para obter as tarefas filtradas e o estado de carregamento,
- * e prepara a função de renderização de linha (`Row`) para a lista virtualizada.
- * @returns {object} - Retorna os dados necessários para a UI, incluindo a lista de tarefas,
- * o estado de carregamento e o componente de linha (`Row`) pronto para ser usado pelo react-window.
+ * Hook customizado para gerenciar a lógica da lista de tarefas, agora com funcionalidade de arrastar e soltar.
+ * Ele busca os dados do store, inicializa o hook de drag-and-drop e prepara os itens para renderização.
+ * @returns {object} - Retorna o estado de carregamento e o array de elementos JSX prontos para serem renderizados.
  */
 export const useTaskList = () => {
-    const { filteredTasks, isLoading } = useTaskStore();
+    const { filteredTasks, isLoading, reorderTasks } = useTaskStore();
+
+    const {
+        items,
+        handleDragStart,
+        handleDragEnter,
+        handleDragEnd,
+        draggingIndex,
+    } = useDraggableList(filteredTasks, reorderTasks);
 
     /**
-     * Cria e retorna o componente de renderização de linha para o `react-window`.
-     * Esta abordagem (uma função que retorna um componente) garante que a função `Row`
-     * tenha sempre acesso aos valores mais recentes de `page` and `pageSize` do store.
-     * @returns {React.ComponentType} - Um componente funcional que renderiza uma única linha.
+     * Mapeia a lista de itens (já na ordem correta gerenciada pelo useDraggableList)
+     * para componentes JSX, aplicando as propriedades de drag-and-drop a cada um.
+     * @type {Array<JSX.Element>}
      */
-    const Row = ({ index, style }) => {
-        return (
-            <div style={style}>
-                <TaskItem task={filteredTasks[index]} />
-            </div>
-        );
-    };
+    const draggableTasks = items.map((task, index) => (
+        <DraggableItem
+            key={task.id}
+            draggable
+            onDragStart={() => handleDragStart(index)}
+            onDragEnter={() => handleDragEnter(index)}
+            onDragEnd={handleDragEnd}
+            onDragOver={(e) => e.preventDefault()}
+            $isDragging={draggingIndex === index}
+        >
+            <TaskItem task={task} />
+        </DraggableItem>
+    ));
 
     return {
-        filteredTasks,
         isLoading,
-        Row
+        draggableTasks,
+        hasTasks: items.length > 0,
     };
 };

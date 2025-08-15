@@ -1,12 +1,8 @@
 import React from 'react';
 
-import { FixedSizeList as List } from 'react-window';
-
-import AutoSizer from 'react-virtualized-auto-sizer';
-
 import { FaBoxOpen } from 'react-icons/fa';
 
-import { ListContainer, LoadingContainer, Spinner, NoTasksFound } from './styles';
+import { ListContainer, LoadingContainer, Spinner, NoTasksFound, DraggableItem } from './styles';
 
 import { useTaskList } from './index.rules';
 
@@ -17,7 +13,7 @@ import { useTaskList } from './index.rules';
  * A lógica de dados é gerenciada pelo hook `useTaskList`.
  */
 const TaskList = () => {
-    const { filteredTasks, isLoading, Row } = useTaskList();
+    const { isLoading, draggableTasks, hasTasks } = useTaskList();
 
     if (isLoading) {
         return (
@@ -28,7 +24,7 @@ const TaskList = () => {
         );
     }
 
-    if (!filteredTasks.length) {
+    if (!hasTasks) {
         return (
             <NoTasksFound>
                 <FaBoxOpen size={50} />
@@ -44,18 +40,7 @@ const TaskList = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <AutoSizer>
-                {({ height, width }) => (
-                    <List
-                        height={height}
-                        itemCount={filteredTasks.length}
-                        itemSize={60}
-                        width={width}
-                    >
-                        {Row}
-                    </List>
-                )}
-            </AutoSizer>
+            {draggableTasks}
         </ListContainer>
     );
 };

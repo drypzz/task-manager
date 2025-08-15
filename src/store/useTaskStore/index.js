@@ -11,42 +11,75 @@ import axios from 'axios';
 const useTaskStore = create((set, get) => ({
     /** @type {Array<Object>} tasks - Array original com todas as tarefas buscadas da API. */
     tasks: [],
-    
+
     /** @type {Array<Object>} filteredTasks - Array de tarefas após a aplicação de filtros e paginação. */
     filteredTasks: [],
-    
+
     /** @type {number} filteredTasksCount - O número total de tarefas após a aplicação dos filtros, antes da paginação. */
     filteredTasksCount: 0,
-    
+
     /** @type {string} statusFilter - O valor do filtro de status atualmente selecionado. */
     statusFilter: 'Todos',
-   
+
     /** @type {string} searchTerm - O termo de busca atualmente digitado pelo usuário. */
     searchTerm: '',
-    
+
     /** @type {number} page - O número da página atual na paginação. */
     page: 1,
-    
+
     /** @type {number} pageSize - A quantidade de itens a serem exibidos por página. */
     pageSize: 25,
-    
+
     /** @type {number} totalPages - O número total de páginas calculado com base em `filteredTasksCount` e `pageSize`. */
     totalPages: 1,
-    
+
     /** @type {boolean} isLoading - Sinalizador para o estado de carregamento da lista principal de tarefas. */
     isLoading: false,
-    
+
     /** @type {Object|null} currentTask - Armazena os dados da tarefa única que está sendo visualizada na página de detalhes. */
     currentTask: null,
-    
+
     /** @type {boolean} isCurrentTaskLoading - Sinalizador para o estado de carregamento da tarefa única. */
     isCurrentTaskLoading: false,
-    
+
     /** @type {Array<object>} notifications - Array de notificações ativas. */
     notifications: [],
-    
+
     /** @type {string|null} error - Armazena a última mensagem de erro da API. */
     error: null,
+
+    /**
+     * Reordena as tarefas arrastadas.
+     * @param {number} oldIndex - O índice original da tarefa arrastada.
+     * @param {number} newIndex - O novo índice da tarefa arrastada.
+     */
+    reorderTasks: async (oldIndex, newIndex) => {
+        const { tasks, page, pageSize } = get();
+
+        const startIndex = (page - 1) * pageSize;
+        const absoluteOldIndex = startIndex + oldIndex;
+        const absoluteNewIndex = startIndex + newIndex;
+
+        const reorderedFullList = [...tasks];
+
+        const [draggedItem] = reorderedFullList.splice(absoluteOldIndex, 1);
+        reorderedFullList.splice(absoluteNewIndex, 0, draggedItem);
+
+        set({ tasks: reorderedFullList });
+        get().filterAndPaginateTasks();
+
+        const updatePromises = reorderedFullList.map((task, index) => {
+            const updatedTask = { ...task, order: index };
+            return axios.put(`http://localhost:3001/tasks/${task.id}`, updatedTask);
+        });
+
+        try {
+            await Promise.all(updatePromises);
+        } catch (error) {
+            get().handleApiError(error, "ao salvar a nova ordem das tarefas");
+            get().fetchTasks();
+        }
+    },
 
     /** Adiciona uma nova notificação ao estado. */
     addNotification: (notification) => {
@@ -81,10 +114,14 @@ const useTaskStore = create((set, get) => ({
      * Atualiza o estado `tasks` e dispara a filtragem inicial.
      */
     fetchTasks: async () => {
-        set({ isLoading: true });
+        if (get().isLoading) return;
+
+        set({ isLoading: true, error: null });
+
         try {
             const response = await axios.get('http://localhost:3001/tasks');
-            set({ tasks: response.data, isLoading: false });
+            const sortedTasks = response.data.sort((a, b) => a.order - b.order);
+            set({ tasks: sortedTasks, isLoading: false });
             get().filterAndPaginateTasks();
         } catch (error) {
             get().handleApiError(error, "ao buscar tarefas");
@@ -97,7 +134,8 @@ const useTaskStore = create((set, get) => ({
      */
     addTask: async (task) => {
         try {
-            const response = await axios.post('http://localhost:3001/tasks', task);
+            const newTaskPayload = { ...task, order: get().tasks.length };
+            const response = await axios.post('http://localhost:3001/tasks', newTaskPayload);
             set((state) => ({ tasks: [...state.tasks, response.data] }));
             get().filterAndPaginateTasks();
             get().addNotification({ type: 'success', message: 'Tarefa criada com sucesso!' });

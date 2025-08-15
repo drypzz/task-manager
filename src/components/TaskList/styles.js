@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 import { motion } from 'framer-motion';
 
@@ -29,12 +29,27 @@ export const Spinner = styled.div`
 `;
 
 export const ListContainer = styled(motion.div)`
-  height: 65vh;
   width: 100%;
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
   overflow: hidden;
+`;
+
+export const DraggableItem = styled.div`
+  cursor: grab;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, opacity 0.2s ease-in-out;
+
+  ${({ $isDragging }) =>
+    $isDragging &&
+    css`
+      opacity: 0.8;
+      transform: scale(1.02);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      cursor: grabbing;
+      border: 1px solid ${({ theme }) => theme.colors.accent};
+      background: ${({ theme }) => theme.colors.primary};
+    `}
 `;
 
 export const NoTasksFound = styled.div`
