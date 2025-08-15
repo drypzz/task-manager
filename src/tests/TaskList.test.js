@@ -1,76 +1,72 @@
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
-
 import '@testing-library/jest-dom';
 
 import { MemoryRouter } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
-
-import { theme } from '../theme'; 
+import { theme } from '../theme';
 
 import TaskList from '../components/TaskList';
 
-import useTaskStore from '../store/useTaskStore';
-
-jest.mock('../store/useTaskStore');
-jest.mock('react-virtualized-auto-sizer', () => ({
-    __esModule: true,
-    default: ({ children }) => children({ height: 600, width: 800 }),
+// Mocka o hook personalizado `useTaskList` para simular os diferentes estados da lista
+jest.mock('../components/TaskList/index.rules', () => ({
+    useTaskList: jest.fn(),
 }));
 
+const { useTaskList } = require('../components/TaskList/index.rules');
+
+// Função utilitária para renderizar com ThemeProvider e MemoryRouter (necessário para componentes com rotas)
+const renderWithProviders = (ui) => {
+    return render(
+        <ThemeProvider theme={theme}>
+            <MemoryRouter>{ui}</MemoryRouter>
+        </ThemeProvider>
+    );
+};
+
 describe('TaskList', () => {
-
-    const renderWithProviders = (ui) => {
-        return render(
-            <ThemeProvider theme={theme}>
-                <MemoryRouter>
-                    {ui}
-                </MemoryRouter>
-            </ThemeProvider>
-        );
-    };
-
     beforeEach(() => {
-        jest.clearAllMocks();
+        jest.clearAllMocks(); // Reseta mocks antes de cada teste
     });
 
     it('exibe o spinner de carregamento', () => {
-        useTaskStore.mockReturnValue({
+        // Estado simulado: carregando tarefas
+        useTaskList.mockReturnValue({
             isLoading: true,
-            filteredTasks: [],
+            hasTasks: false,
+            draggableTasks: [],
         });
 
         renderWithProviders(<TaskList />);
-
         expect(screen.getByText('Carregando tarefas...')).toBeInTheDocument();
     });
 
-    it('exibe a mensagem de "nenhuma tarefa encontrada" quando a lista está vazia', () => {
-        useTaskStore.mockReturnValue({
+    it('exibe mensagem de "nenhuma tarefa encontrada"', () => {
+        // Estado simulado: sem tarefas
+        useTaskList.mockReturnValue({
             isLoading: false,
-            filteredTasks: [],
+            hasTasks: false,
+            draggableTasks: [],
         });
 
         renderWithProviders(<TaskList />);
-
         expect(screen.getByText('Nenhuma tarefa encontrada')).toBeInTheDocument();
     });
 
-    it('renderiza a lista de tarefas', () => {
-        const tasks = [
-            { id: 1, title: 'Tarefa de Teste 1', status: 'Concluída' },
-            { id: 2, title: 'Tarefa de Teste 2', status: 'Em andamento' },
-        ];
-
-        useTaskStore.mockReturnValue({
+    it('renderiza lista de tarefas', () => {
+        // Estado simulado: tarefas disponíveis
+        useTaskList.mockReturnValue({
             isLoading: false,
-            filteredTasks: tasks,
+            hasTasks: true,
+            draggableTasks: [
+                <div key="1">Tarefa de Teste 1</div>,
+                <div key="2">Tarefa de Teste 2</div>,
+            ],
         });
 
         renderWithProviders(<TaskList />);
-
         expect(screen.getByText('Tarefa de Teste 1')).toBeInTheDocument();
         expect(screen.getByText('Tarefa de Teste 2')).toBeInTheDocument();
     });
