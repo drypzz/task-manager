@@ -1,19 +1,19 @@
 export const theme = {
     colors: {
-        background: '#111827', // Cinza-azulado muito escuro
-        surface: '#1F2937',    // Cinza-ardósia
-        primary: '#374151',    // Cinza médio para hover
-        accent: '#14B8A6',     // Verde-azulado (Teal) vibrante
-        font: '#F9FAFB',       // Branco suave
-        fontSecondary: '#9CA3AF', // Cinza claro para texto secundário
-        success: '#22C55E',    // Verde-limão
-        warning: '#F59E0B',    // Âmbar
-        danger: '#EF4444',     // Vermelho vivo
-        border: 'rgba(255, 255, 255, 0.08)',
-        info: '#3B82F6',       // Azul
+        background: '#282C34', // Fundo principal
+        surface: '#21252B',    // Painéis e áreas elevadas
+        primary: '#3E4451',    // Tons neutros para hover/seleção
+        accent: '#61AFEF',     // Azul vibrante
+        font: '#ABB2BF',       // Texto padrão
+        fontSecondary: '#5C6370', // Texto secundário / comentários
+        success: '#c1ff95ff',    // Verde suave
+        warning: '#ffd484ff',    // Amarelo ouro
+        danger: '#ff7a85ff',     // Vermelho rosado
+        border: 'rgba(255, 255, 255, 0.08)', // Borda suave
+        info: '#68edffff',       // Ciano
     },
     fonts: {
-        main: "'Poppins', sans-serif",
+        main: "'Fira Code', monospace",
     },
     spacing: (unit) => `${unit * 8}px`,
 };

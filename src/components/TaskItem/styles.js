@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
+
 import { Link } from 'react-router-dom';
 
 import { motion } from 'framer-motion';
@@ -50,6 +51,7 @@ export const TaskTitle = styled.span`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-right: ${({ theme }) => theme.spacing(1)}; 
 `;
 
 export const TaskStatus = styled.span`
@@ -88,4 +90,28 @@ export const ActionButton = styled(motion.button)`
     color: ${({ $danger, theme }) => ($danger ? theme.colors.danger : theme.colors.info)};
     background-color: ${({ theme }) => theme.colors.border};
   }
+`;
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`;
+
+export const NewBadge = styled.span`
+  background-color: red;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  margin-left: ${({ theme }) => theme.spacing(-1)};
+  animation: ${fadeIn} 0.5s ease-out;
 `;

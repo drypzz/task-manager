@@ -52,6 +52,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   padding: ${({ theme }) => theme.spacing(1.5)};
   font-size: 1rem;
+  font-family: ${({ theme }) => theme.fonts.main};
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 8px;
@@ -96,18 +97,21 @@ export const ButtonContainer = styled.div`
 
 export const Button = styled(motion.button)`
   padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(3)};
+  font-family: ${({ theme }) => theme.fonts.main};
   font-size: 1rem;
   font-weight: 600;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: all 300ms ease-in-out;
 
-  background: ${({ $secondary, theme }) => ($secondary ? 'transparent' : theme.colors.accent)};
-  color: ${({ $secondary, theme }) => ($secondary ? theme.colors.fontSecondary : 'white')};
+  color: white;
+
+  background: ${({ $secondary, theme }) => ($secondary ? 'red' : theme.colors.accent)};
   border: 1px solid ${({ $secondary, theme }) => ($secondary ? theme.colors.border : 'transparent')};
 
   &:hover {
     transform: translateY(-2px);
+    opacity: .8;
   }
 `;

@@ -6,7 +6,7 @@ import { AnimatePresence } from 'framer-motion';
 
 import TaskForm from '../TaskForm';
 
-import { Item, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton } from './styles';
+import { Item, TaskInfoLink, TaskTitle, TaskStatus, Actions, ActionButton, NewBadge } from './styles';
 
 import { useTaskItem } from './index.rules';
 
@@ -19,7 +19,7 @@ import { useTaskItem } from './index.rules';
  */
 const TaskItem = ({ task }) => {
 
-    const { isEditing, handleDelete, handleEdit, handleCloseModal } = useTaskItem({ task });
+    const { isEditing, handleDelete, handleEdit, handleCloseModal, isNew } = useTaskItem({ task });
 
     return (
         <>
@@ -33,6 +33,7 @@ const TaskItem = ({ task }) => {
                 <TaskInfoLink to={`/task/${task.id}`}>
                     <TaskStatus $status={task.status} title={task.status} />
                     <TaskTitle>{task.title}</TaskTitle>
+                    {isNew() && <NewBadge>NOVO</NewBadge>}
                 </TaskInfoLink>
 
                 <Actions>

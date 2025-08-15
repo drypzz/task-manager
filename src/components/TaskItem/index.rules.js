@@ -15,6 +15,14 @@ export const useTaskItem = ({ task }) => {
     /** @type {[boolean, Function]} isEditing - Estado local que controla se o modal de edição para esta tarefa está aberto. */
     const [isEditing, setIsEditing] = useState(false);
 
+    const isNew = () => {
+        if (!task.createdAt) return false;
+
+        const taskAge = Date.now() - new Date(task.createdAt).getTime();
+
+        return taskAge < 300000;
+    };
+
     /**
      * Manipulador para a ação de deletar.
      * Exibe uma confirmação nativa do navegador e, se confirmado, chama a ação 'deleteTask' do store.
@@ -35,6 +43,7 @@ export const useTaskItem = ({ task }) => {
         isEditing,
         handleDelete,
         handleEdit,
-        handleCloseModal
+        handleCloseModal,
+        isNew
     };
 };

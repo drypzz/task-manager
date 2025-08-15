@@ -35,6 +35,7 @@ export const NewTaskButton = styled(motion.button)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing(1)};
+  font-family: ${({ theme }) => theme.fonts.main};
   padding: ${({ theme }) => theme.spacing(1.5)} ${({ theme }) => theme.spacing(3)};
   font-size: 1rem;
   font-weight: 600;
@@ -86,6 +87,7 @@ export const SearchInput = styled.input`
   padding: ${({ theme }) => theme.spacing(1.5)};
   font-size: 1rem;
   background: transparent;
+  font-family: ${({ theme }) => theme.fonts.main};
   border: none;
   color: ${({ theme }) => theme.colors.font};
   outline: none;
@@ -112,6 +114,7 @@ export const PageInfo = styled.span`
 export const NavButton = styled(motion.button)`
   display: inline-flex;
   align-items: center;
+  font-family: ${({ theme }) => theme.fonts.main};
   gap: ${({ theme }) => theme.spacing(1)};
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -153,7 +156,6 @@ export const LegendItem = styled.div`
   align-items: center;
   gap: ${({ theme }) => theme.spacing(1)};
   font-size: 0.85rem;
-  color: ${({ theme }) => theme.colors.fontSecondary};
 `;
 
 const statusColors = {
