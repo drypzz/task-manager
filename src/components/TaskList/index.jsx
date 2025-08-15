@@ -2,14 +2,12 @@ import React from 'react';
 
 import { FaBoxOpen } from 'react-icons/fa';
 
-import { ListContainer, LoadingContainer, Spinner, NoTasksFound, DraggableItem } from './styles';
+import { ListContainer, LoadingContainer, Spinner, NoTasksFound } from './styles';
 
 import { useTaskList } from './index.rules';
 
 /**
  * Componente de UI responsável por renderizar a lista de tarefas.
- * Utiliza `react-window` para virtualização, garantindo alta performance
- * ao renderizar apenas os itens visíveis na tela.
  * A lógica de dados é gerenciada pelo hook `useTaskList`.
  */
 const TaskList = () => {
