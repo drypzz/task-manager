@@ -1,5 +1,9 @@
 # Gerenciador de Tarefas
 
+<p align="center">
+  <img src="https://github.com/drypzz/task-manager/blob/release/dev/preview/preview.gif" alt="preview" width="800"/>
+</p>
+
 ## 📄 Sobre o Projeto
 
 Este é um projeto de uma **Single Page Application (SPA)** construída com **React** para exibir e gerenciar uma lista de tarefas. A aplicação foi projetada para ser interativa, responsiva e com uma excelente experiência de usuário, utilizando ferramentas modernas do ecossistema JavaScript.
