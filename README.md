@@ -10,14 +10,14 @@ O projeto inclui funcionalidades completas de CRUD, uma lista com ordenação cu
 
 ## ✨ Funcionalidades
 
--   **CRUD Completo:** Adição, visualização de detalhes, edição e exclusão de tarefas.
--   **Arrastar e Soltar (Drag and Drop):** Reordene as tarefas arrastando-as com o mouse. A nova ordem é salva automaticamente.
+-   **CRUD:** Adição, visualização de detalhes, edição e exclusão de tarefas.
+-   **Drag and Drop:** Reordene as tarefas arrastando-as com o mouse. A nova ordem é salva automaticamente.
 -   **Lista Interativa:** A funcionalidade de arrastar é ativada ao "segurar" o item, permitindo cliques normais para navegação.
 -   **Filtros Dinâmicos:** Filtro por status da tarefa (Concluída, Em Andamento, etc.) e campo de busca por título.
 -   **Paginação:** Controle de itens exibidos por página e botões de navegação.
 -   **Selo "Novo":** Feedback visual para tarefas recém-criadas, que aparecem com um selo indicativo.
 -   **Roteamento:** Navegação entre a lista principal e as telas de detalhes e "Página Não Encontrada" com **React Router**.
--   **Design Moderno e Responsivo:** Interface construída com **Styled Components** e layout adaptável.
+-   **Design:** Interface construída com **Styled Components** e layout responsivo.
 -   **Testes Unitários:** Cobertura de testes para componentes críticos utilizando **Jest** e **React Testing Library**.
 
 ---
@@ -107,9 +107,10 @@ A estrutura de pastas do projeto foi organizada para promover a separação de r
 |-- /store         # Configuração do estado global (Zustand)
 |-- /tests         # Arquivos de teste
 |-- /theme         # Definição do tema (cores, fontes, etc.)
-|-- App.jsx        # Componente principal com as rotas
+|-- App.jsx        # Componente principal
 |-- globalStyles.js # Estilos globais da aplicação
 |-- index.js       # Ponto de entrada da aplicação
+|-- router.js      # Componente de rotas da aplicação
 ```
 
 ---
