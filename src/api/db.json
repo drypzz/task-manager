@@ -7,7 +7,7 @@
       "author": "Ana Silva",
       "createdAt": "2025-08-10T10:00:00.000Z",
       "description": "Revisar e organizar os documentos físicos e digitais do departamento administrativo, criando uma estrutura de pastas padronizada.",
-      "order": 7
+      "order": 6
     },
     {
       "id": "2",
@@ -25,16 +25,16 @@
       "author": "Ana Silva",
       "createdAt": "2025-08-12T09:00:00.000Z",
       "description": "Realizar contagem física dos itens em estoque e atualizar o sistema com as quantidades corretas.",
-      "order": 14
+      "order": 15
     },
     {
       "id": "4",
       "title": "Enviar relatórios mensais",
-      "status": "Em andamento",
+      "status": "Pendente",
       "author": "Carlos Pereira",
       "createdAt": "2025-08-14T11:00:00.000Z",
       "description": "Preparar e enviar os relatórios de desempenho do mês para a diretoria.",
-      "order": 3
+      "order": 8
     },
     {
       "id": "5",
@@ -61,7 +61,7 @@
       "author": "Juliana Rocha",
       "createdAt": "2025-08-09T15:00:00.000Z",
       "description": "Aplicar treinamento sobre novas técnicas de vendas e atendimento ao cliente.",
-      "order": 1
+      "order": 3
     },
     {
       "id": "8",
@@ -79,7 +79,7 @@
       "author": "Lucas Almeida",
       "createdAt": "2025-08-14T09:40:00.000Z",
       "description": "Definir e organizar as datas de férias dos colaboradores para o próximo semestre.",
-      "order": 8
+      "order": 7
     },
     {
       "id": "10",
@@ -97,7 +97,7 @@
       "author": "Fernanda Souza",
       "createdAt": "2025-08-03T12:30:00.000Z",
       "description": "Analisar os contratos vigentes e propor alterações quando necessário.",
-      "order": 2
+      "order": 1
     },
     {
       "id": "12",
@@ -124,7 +124,7 @@
       "author": "Rodrigo Nunes",
       "createdAt": "2025-08-06T09:25:00.000Z",
       "description": "Realizar pintura, troca de iluminação e compra de mobiliário para a sala.",
-      "order": 6
+      "order": 4
     },
     {
       "id": "15",
@@ -214,7 +214,7 @@
       "author": "João Batista",
       "createdAt": "2025-08-04T07:55:00.000Z",
       "description": "Limpar filtros e verificar funcionamento dos aparelhos.",
-      "order": 4
+      "order": 2
     },
     {
       "id": "25",
@@ -223,7 +223,7 @@
       "author": "Beatriz Andrade",
       "createdAt": "2025-08-02T09:45:00.000Z",
       "description": "Providenciar documentação necessária para renovação de licenças municipais.",
-      "order": 15
+      "order": 14
     },
     {
       "id": "26",
@@ -250,7 +250,7 @@
       "author": "Larissa Teixeira",
       "createdAt": "2025-08-08T08:15:00.000Z",
       "description": "Remover comunicados antigos e fixar novas informações.",
-      "order": 29
+      "order": 30
     },
     {
       "id": "29",
@@ -268,7 +268,7 @@
       "author": "Helena Castro",
       "createdAt": "2025-08-10T13:30:00.000Z",
       "description": "Definir padrão de abordagem para ligações e atendimentos presenciais.",
-      "order": 30
+      "order": 26
     },
     {
       "id": "31",
@@ -331,7 +331,7 @@
       "author": "Renata Lopes",
       "createdAt": "2025-08-04T14:15:00.000Z",
       "description": "Adicionar aniversários do próximo trimestre no mural.",
-      "order": 26
+      "order": 28
     },
     {
       "id": "38",
@@ -349,7 +349,7 @@
       "author": "Juliana Barbosa",
       "createdAt": "2025-08-06T16:45:00.000Z",
       "description": "Obter assinaturas necessárias para formalização de contratos.",
-      "order": 28
+      "order": 29
     },
     {
       "id": "40",
